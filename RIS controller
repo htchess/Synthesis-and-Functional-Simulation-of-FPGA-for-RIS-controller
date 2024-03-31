@@ -1,0 +1,62 @@
+`timescale 1 ns / 1 ns
+
+module mian_SNR_BLAS
+          (Nr,
+           B,
+           Nt,
+           NI,
+           P,
+           Nloop,
+           Mse,
+           MseG);
+
+
+  input   [63:0] Nr;  // double
+  input   [63:0] B;  // double
+  input   [63:0] Nt;  // double
+  input   [63:0] NI;  // double
+  input   [63:0] P;  // double
+  input   [63:0] Nloop;  // double
+  output  [63:0] Mse;  // double
+  output  [63:0] MseG;  // double
+
+
+  real Nr_double;  // double
+  real B_double;  // double
+  real Nt_double;  // double
+  real NI_double;  // double
+  real P_double;  // double
+  real Nloop_double;  // double
+  real Mse_1;  // double
+  real MseG_1;  // double
+
+
+  always @* Nr_double = $bitstoreal(Nr);
+
+  always @* B_double = $bitstoreal(B);
+
+  always @* Nt_double = $bitstoreal(Nt);
+
+  always @* NI_double = $bitstoreal(NI);
+
+  always @* P_double = $bitstoreal(P);
+
+  always @* Nloop_double = $bitstoreal(Nloop);
+
+  //HDL code generation from MATLAB function: mian_SNR_BLAS
+  //length(SNR_set)
+  //         G = generate_channel_LOS(NI, Nr, P)
+  //         H = generate_channel_LOS(Nt, NI, P)
+  //         S = gen_DFTmatrix(B,NI)
+  //         Z = H.'
+  // Noise = (randn(Nr, Nt, B) + 1j * randn(Nr, Nt, B))
+  initial Mse_1 = 0.19012451171875;
+  initial MseG_1 = 2.9215087890625;
+
+
+
+  assign Mse = $realtobits(Mse_1);
+
+  assign MseG = $realtobits(MseG_1);
+
+endmodule  // mian_SNR_BLAS
